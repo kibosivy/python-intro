@@ -1,0 +1,180 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNkN+KqldPWMIf+IVFVAjbV",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/kibosivy/python-intro/blob/main/Rock-paper-scissors\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "055r1C0-GyHj"
+      },
+      "outputs": [],
+      "source": [
+        "import random"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def get_computer_choice():\n",
+        "    return random.choice([\"rock\", \"paper\", \"scissors\"])  # Picks randomly"
+      ],
+      "metadata": {
+        "id": "Yb3vzn8FG6My"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def get_user_choice():\n",
+        "    while True:\n",
+        "        choice = input(\"Enter rock, paper, or scissors: \").lower()\n",
+        "        if choice in [\"rock\", \"paper\", \"scissors\"]:\n",
+        "            return choice\n",
+        "        print(\"Invalid choice! Please enter rock, paper, or scissors.\")"
+      ],
+      "metadata": {
+        "id": "M5kuqBlNG-KP"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def determine_winner(user, computer):\n",
+        "    if user == computer:\n",
+        "        return \"It's a tie\"\n",
+        "    elif (user == \"rock\" and computer == \"scissors\") or \\\n",
+        "         (user == \"scissors\" and computer == \"paper\") or \\\n",
+        "         (user == \"paper\" and computer == \"rock\"):\n",
+        "        return \"You win\"\n",
+        "    else:\n",
+        "        return \"Computer wins\""
+      ],
+      "metadata": {
+        "id": "Wp0cMxYdHJSy"
+      },
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def play_game(rounds=3):\n",
+        "    user_score = 0\n",
+        "    computer_score = 0\n",
+        "    winning_score = (rounds // 2) + 1\n",
+        "\n",
+        "    for round_number in range(1, rounds + 1):\n",
+        "        print(f\"\\nRound {round_number}\")\n",
+        "\n",
+        "        user_choice = get_user_choice()\n",
+        "        computer_choice = get_computer_choice()\n",
+        "\n",
+        "        print(f\"You chose: {user_choice}\")\n",
+        "        print(f\"Computer chose: {computer_choice}\")\n",
+        "\n",
+        "        result = determine_winner(user_choice, computer_choice)\n",
+        "        print(result)\n",
+        "\n",
+        "        # Update scores\n",
+        "        if \"win\" in result:\n",
+        "            user_score += 1\n",
+        "        elif \"Computer wins\" in result:\n",
+        "            computer_score += 1\n",
+        "\n",
+        "        # Check if there's an early winner\n",
+        "        if user_score == winning_score:\n",
+        "            print(\"\\n You won the game\")\n",
+        "            return\n",
+        "        elif computer_score == winning_score:\n",
+        "            print(\"\\n Computer won the game\")\n",
+        "            return\n",
+        "\n",
+        "    # Final result if no early winner\n",
+        "    print(\"\\nGame Over\")\n",
+        "    if user_score > computer_score:\n",
+        "        print(\"You are the overall winner\")\n",
+        "    elif user_score < computer_score:\n",
+        "        print(\"Computer is the overall winner\")\n",
+        "    else:\n",
+        "        print(\"It's a tie\")\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "g3bu9EFEHWHV"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "play_game(3)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "0LrF8sIIHuzR",
+        "outputId": "55b93f9f-26a0-4d74-f8ec-474f03852280"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Round 1\n",
+            "Enter rock, paper, or scissors: rock\n",
+            "You chose: rock\n",
+            "Computer chose: rock\n",
+            "It's a tie\n",
+            "\n",
+            "Round 2\n",
+            "Enter rock, paper, or scissors: paper\n",
+            "You chose: paper\n",
+            "Computer chose: scissors\n",
+            "Computer wins\n",
+            "\n",
+            "Round 3\n",
+            "Enter rock, paper, or scissors: rock\n",
+            "You chose: rock\n",
+            "Computer chose: scissors\n",
+            "You win\n",
+            "\n",
+            " You won the game\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
